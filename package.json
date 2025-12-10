@@ -1,9 +1,9 @@
 {
   "name": "acquasitions",
   "version": "1.0.0",
-  "type": "module",
   "main": "index.js",
   "imports": {
+    "#src/*": "./src/*",
     "#config/*": "./src/config/*",
     "#controllers/*": "./src/controllers/*",
     "#middleware/*": "./src/middleware/*",
@@ -24,7 +24,8 @@
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
     "dev:docker": "sh ./scripts/dev.sh",
-    "prod:docker": "sh ./scripts/prod.sh"
+    "prod:docker": "sh ./scripts/prod.sh",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "type": "module",
   "bugs": {
     "url": "https://github.com/Ibrahim0406/Acquasitions/issues"
   },
@@ -56,10 +58,13 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "cross-env": "^10.1.0",
     "drizzle-kit": "^0.18.1",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
-    "prettier": "^3.7.4"
+    "jest": "^30.2.0",
+    "prettier": "^3.7.4",
+    "supertest": "^7.1.4"
   }
 }
