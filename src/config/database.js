@@ -1,11 +1,11 @@
-import "dotenv/config";
+import 'dotenv/config';
 
-import { neon, neonConfig } from "@neondatabase/serverless";
+import { neon, neonConfig } from '@neondatabase/serverless';
 
-import { drizzle } from "drizzle-orm/neon-http";
+import { drizzle } from 'drizzle-orm/neon-http';
 
-if (process.env.NODE_ENV === "development") {
-  neonConfig.fetchEndpoint = "http://neon-local:5432/sql";
+if (process.env.NODE_ENV === 'development') {
+  neonConfig.fetchEndpoint = 'http://neon-local:5432/sql';
   neonConfig.useSequreWebSocket = false;
   neonConfig.poolQueryViaFetch = true;
 }

@@ -1,15 +1,15 @@
-import logger from "#config/logger.js";
-import bcrypt from "bcrypt";
-import { db } from "#config/database.js";
-import { users } from "#models/user.model.js";
-import { eq } from "drizzle-orm";
+import logger from '#config/logger.js';
+import bcrypt from 'bcrypt';
+import { db } from '#config/database.js';
+import { users } from '#models/user.model.js';
+import { eq } from 'drizzle-orm';
 
 export const hashPassword = async password => {
   try {
     return await bcrypt.hash(password, 10);
   } catch (e) {
     logger.error(`Error hashing the password  ${e}`);
-    throw new Error("Error hashing");
+    throw new Error('Error hashing');
   }
 };
 
@@ -18,11 +18,11 @@ export const comparePassword = async (password, hashedPassword) => {
     return await bcrypt.compare(password, hashedPassword);
   } catch (e) {
     logger.error(`Error comparing password: ${e}`);
-    throw new Error("Error comparing password");
+    throw new Error('Error comparing password');
   }
 };
 
-export const createUser = async ({ name, email, password, role = "user" }) => {
+export const createUser = async ({ name, email, password, role = 'user' }) => {
   try {
     const existingUser = await db
       .select()
@@ -31,7 +31,7 @@ export const createUser = async ({ name, email, password, role = "user" }) => {
       .limit(1);
 
     if (existingUser.length > 0)
-      throw new Error("User with this email already exists");
+      throw new Error('User with this email already exists');
 
     const password_hash = await hashPassword(password);
 
@@ -46,7 +46,7 @@ export const createUser = async ({ name, email, password, role = "user" }) => {
         created_at: users.created_at,
       });
 
-    logger.info("User created successfully");
+    logger.info('User created successfully');
     return newUser;
   } catch (e) {
     logger.error(`Error creating user: ${e}`);
@@ -63,16 +63,16 @@ export const authenticateUser = async ({ email, password }) => {
       .limit(1);
 
     if (!user) {
-      throw new Error("Invalid email or password");
+      throw new Error('Invalid email or password');
     }
 
     const isPasswordValid = await comparePassword(password, user.password);
 
     if (!isPasswordValid) {
-      throw new Error("Invalid email or password");
+      throw new Error('Invalid email or password');
     }
 
-    logger.info("User authenticated successfully", { email });
+    logger.info('User authenticated successfully', { email });
 
     return {
       id: user.id,

@@ -1,7 +1,7 @@
-import { users } from "#models/user.model.js";
-import { db } from "#config/database.js";
-import logger from "#config/logger.js";
-import { eq } from "drizzle-orm";
+import { users } from '#models/user.model.js';
+import { db } from '#config/database.js';
+import logger from '#config/logger.js';
+import { eq } from 'drizzle-orm';
 
 export const getAllUsers = async () => {
   try {
@@ -16,7 +16,7 @@ export const getAllUsers = async () => {
       })
       .from(users);
   } catch (e) {
-    logger.error("Error getting users", e);
+    logger.error('Error getting users', e);
     throw error;
   }
 };
@@ -36,7 +36,7 @@ export const getUserById = async id => {
       .limit(1);
 
     if (!user) {
-      throw new Error("User not found");
+      throw new Error('User not found');
     }
 
     return user;
@@ -59,7 +59,7 @@ export const updateUser = async (id, updates) => {
         .where(eq(users.email, updates.email))
         .limit(1);
       if (emailExists) {
-        throw new Error("Email already exists");
+        throw new Error('Email already exists');
       }
     }
 
