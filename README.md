@@ -1,4 +1,4 @@
-# Acquasitions
+# Acquisitions
 
 A modern, production-ready REST API built with Express.js, featuring authentication, user management, and secure database operations with Neon PostgreSQL.
 
